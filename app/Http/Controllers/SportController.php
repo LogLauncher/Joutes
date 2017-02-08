@@ -51,7 +51,11 @@ class SportController extends Controller
             'description' => 'max:45' 
         );
 
-        $validator = Validator::make($request->all(), $rules);
+        $customMesssages = array(
+            'name.unique'=>'Ce sport existe déjà.'
+        );
+
+        $validator = Validator::make($request->all(), $rules, $customMesssages);
 
         if ($validator->fails()) {
             return view('sport.create')->withErrors($validator->errors());
