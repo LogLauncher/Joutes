@@ -115,7 +115,7 @@ $( document ).ready(function() {
 		    	var descriptionValue = $('#formSport #description').val();
 
 		    	var patternName = /^[a-zA-Z0-9-_ ]{3,20}$/;
-		    	var patternDecription = /^[a-zA-Z0-9-_ ]{0,45}$/;
+		    	var patternDecription = /^.{0,45}$/;
 
 		    	if(!patternName.test(nameValue)){
 		    		error += 'Le champ Nom ne doit pas être vide et doit avoir entre 3 et 45 caractères.<br>';
