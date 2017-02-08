@@ -48,7 +48,7 @@ class CourtController extends Controller
         $customError = null;
         // Check if there already is a court with the same name AND sport linked. A court can have many times same name but not for the same sport linked.
         if(Court::whereRaw('name = ? and fk_sports = ?', [$request->input('name'), $request->input('sport')])->exists()){
-            $customError = 'Le terrain "'.$request->input('name').'" est déjà lier au sport "'.Sport::find($request->input('sport'))->name.'".';
+            $customError = 'Le terrain "'.$request->input('name').'" est déjà lié au sport "'.Sport::find($request->input('sport'))->name.'".';
         }
 
 
