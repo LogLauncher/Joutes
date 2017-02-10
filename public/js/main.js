@@ -108,17 +108,19 @@ $( document ).ready(function() {
 		var form = $(this).parent();
 		var formId = form.attr('id');
 		var error = '';
-		
+		var accentedCharacters = "àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ";
+
 		switch(formId) {
 		    case "formSport":
 		    	var nameValue = $('#formSport #name').val();
 		    	var descriptionValue = $('#formSport #description').val();
 
-		    	var patternName = /^[a-zA-Z0-9-_ ]{3,20}$/;
+		    	var patternName = "^[a-zA-Z0-9-_ "+accentedCharacters+"]{3,20}$";
+	    		var regexCompiledName = new RegExp(patternName);
 		    	var patternDecription = /^.{0,45}$/;
 
-		    	if(!patternName.test(nameValue)){
-		    		error += 'Le champ Nom ne doit pas être vide et doit avoir entre 3 et 45 caractères.<br>';
+		    	if(!regexCompiledName.test(nameValue)){
+		    		error += 'Le champ Nom ne doit pas être vide et doit avoir entre 3 et 45 caractères, sans caractères spéciaux.<br>';
 		    	}
 		    	if(!patternDecription.test(descriptionValue)){
 		    		error += 'Le champ Description peut avoir maximum 45 caractères.<br>';
@@ -128,12 +130,13 @@ $( document ).ready(function() {
 	        case "formCourt":
 	        	var nameValue = $('#formCourt #name').val();
 		    	var sportValue = $('#formCourt #sport').val(); // '' = empty, 1-2-3-... = sport
-
-		    	var patternName = /^[a-zA-Z0-9-_ ]{1,20}$/;
+		    	
+		    	var patternName = "^[a-zA-Z0-9-_ "+accentedCharacters+"]{1,20}$";
+		    	var regexCompiledName = new RegExp(patternName);
 		    	var patternSport = /^[0-9]+$/;
 
-		    	if(!patternName.test(nameValue)){
-		    		error += 'Le champ Nom ne doit pas être vide et doit avoir entre 1 et 20 caractères.<br>';
+		    	if(!regexCompiledName.test(nameValue)){
+		    		error += 'Le champ Nom ne doit pas être vide et doit avoir entre 1 et 20 caractères, sans caractères spéciaux.<br>';
 		    	}
 		    	if(!patternSport.test(sportValue)){
 		    		error += 'Aucun sport sélectionné.<br>';
@@ -147,13 +150,14 @@ $( document ).ready(function() {
 		    	var startTimeValue = $('#formTournament #startTime').val();
 		    	var endDateValue = $('#formTournament #endDate').val();
 
-		    	var patternName = /^[a-zA-Z0-9-_ ]{3,45}$/;
+		    	var patternName = "^[a-zA-Z0-9-_ "+accentedCharacters+"]{3,45}$";
+		    	var regexCompiledName = new RegExp(patternName);
 		    	var patternSport = /^[0-9]+$/; // '' = empty, 1-2-3-... = sport
 		    	var patternDate = /^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
 		    	var patternTime = /^([01]\d|2[0-3]):?([0-5]\d)$/;
 
-		    	if(!patternName.test(nameValue)){
-		    		error += 'Le champ Nom ne doit pas être vide et doit avoir entre 3 et 45 caractères.<br>';
+		    	if(!regexCompiledName.test(nameValue)){
+		    		error += 'Le champ Nom ne doit pas être vide et doit avoir entre 3 et 45 caractères, sans caractères spéciaux.<br>';
 		    	}
 		    	if(!patternSport.test(sportValue)){
 		    		error += 'Aucun sport sélectionné.<br>';
