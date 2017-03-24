@@ -6,7 +6,7 @@
 		@if ($fromEvent)
 			<a href="{{ route('events.index') }}"><i class="fa fa-4x fa-arrow-circle-left return" aria-hidden="true"></i></a>
 		@endif
-		
+
 		@if ($fromEvent)
 			<h1>Tournois de l'évenement {{ $eventName }}</h1>
 		@else
@@ -50,11 +50,11 @@
 
 		</div>
 
-		<!--@if(Auth::check())
+		@if(Auth::check())
 			@if(Auth::user()->role == 'administrator')
 				<a href="{{route('tournaments.create')}}" title="Créer un tournoi"><i class="fa fa-plus-circle fa-4x" aria-hidden="true"></i></a>
 			@endif
-		@endif-->
-		
+		@endif
+
 	</div>
 @stop
