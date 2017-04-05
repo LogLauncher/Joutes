@@ -16,15 +16,23 @@ use Illuminate\Http\Request;
 $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', function ($api) {
-    $api->resource('events', 'App\Http\Controllers\EventController', [ 'only' => [
-        'index', 'show'
-    ]]);
 
-    $api->resource('events.tournaments', 'App\Http\Controllers\EventTournamentController', [ 'only' => [
-        'index', 'show'
-    ]]);
+    $api->group(['middleware'=>App\Http\Middleware\AddCorsHeaders::class], function($api) {
 
-    $api->resource('events.teams', 'App\Http\Controllers\EventTeamController', [ 'only' => [
-        'index', 'show'
-    ]]);
+        $api->resource('events', 'App\Http\Controllers\EventController', [ 'only' => [
+            'index', 'show'
+        ]]);
+
+        $api->resource('events.tournaments', 'App\Http\Controllers\EventTournamentController', [ 'only' => [
+            'index', 'show'
+        ]]);
+
+        $api->resource('events.teams', 'App\Http\Controllers\API\EventTeamController', [ 'only' => [
+            'index', 'show'
+        ]]);
+
+        $api->resource('events.participants', 'App\Http\Controllers\API\EventParticipantController', [ 'only' => [
+            'index', 'show'
+        ]]);
+    });
 });

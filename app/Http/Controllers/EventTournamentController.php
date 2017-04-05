@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Tournament;
 use App\Event;
-use App\Sport;
+use Illuminate\Http\Request;
+use Dingo\Api\Routing\Helpers;
+use App\Http\Response\Transformers\TournamentTransformer;
+use App\Http\Response\Transformers\SingleTournamentTransformer;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class EventTournamentController extends Controller
 {
+    use Helpers;
     /**
      * Display a listing of the resource.
      *
@@ -25,30 +27,25 @@ class EventTournamentController extends Controller
             // get event tournaments
             $tournaments = Event::findOrFail($event_id)->tournaments;
 
-            // loop through tournaments to get courts and sport
-            foreach ($tournaments as $tournament) {
-
-                $court_names = [];
-                $sport       = '';
-
-                // get tournament courts
-                $courts = Tournament::findOrFail($tournament->id)->courts;
-
-                foreach ($courts as $court) {
-                    $court_names[] = $court->name;
-                    $sport         = Sport::findOrFail($court->fk_sports);
-                }
-
-                // adding found sport and courts to tournaments array.
-                // This is done because, these informations aren't found when getting info from tournament.
-                $tournament['sport']  = $sport->name;
-                $tournament['courts'] = $court_names;
-            }
-
-            return $tournaments;
+            return $this->response->collection($tournaments, new TournamentTransformer, ['key' => 'tournaments']);
         }
 
-        return true;
+
+        $event = Event::findOrFail($event_id);
+        $tournaments = $event->tournaments;
+
+        foreach ($tournaments as $tournament) {
+            if (empty($tournament->img)) {
+                $tournament->img = 'default.jpg';
+            }
+        }
+
+        return view('tournament.index', array(
+            "tournaments" => $tournaments,
+            "fromEvent" => true,
+            "event" => $event
+        ));
+
     }
 
     /**
@@ -65,41 +62,9 @@ class EventTournamentController extends Controller
         // check is it's an api request
         if ($request->is('api/*')) {
 
-            // get event and event tournaments
-            $event       = Event::findOrFail($event_id);
-            $tournament  = $event->tournament($tournament_id);
-            $court_names = [];
-            $sport       = '';
-            $team_names  = [];
+            $tournament  = Event::findOrFail($event_id)->tournament($tournament_id);
 
-            // check if tournament belongs to event
-            if (empty($tournament)) {
-                // error
-                throw new NotFoundHttpException("Tournament " . $tournament_id . " doesn't belong to Event " . $event_id);
-            }
-
-            // get tournament courts and teams
-            $courts = Tournament::findOrFail($tournament_id)->courts;
-            $teams  = Tournament::findOrFail($tournament_id)->teams;
-
-            // get tournament courts and sport
-            foreach ($courts as $court) {
-                $court_names[] = $court->name;
-                $sport         = Sport::findOrFail($court->fk_sports);
-            }
-
-            // get tournament teams
-            foreach ($teams as $team) {
-                $team_names[] = $team->name;
-            }
-
-            // adding found sport and courts to tournaments array.
-            // This is done because, these informations aren't found when getting info from tournament.
-            $tournament['sport']  = empty($sport) ? "No sports" : $sport->name;
-            $tournament['courts'] = $court_names;
-            $tournament['teams']  = $team_names;
-
-            return $tournament;
+            return $this->response->item($tournament, new SingleTournamentTransformer, ['key' => 'tournament']);
         }
 
         return true;

@@ -3,33 +3,64 @@
 @extends('layout')
 
 @section('content')
-	<div id="container">
-		<a href="{{ route('tournaments.index') }}"><img src="{{ asset("images/return-arrow.png") }}" alt="Retour en arrière" class="return"></a>
+	<div class="container">
+
+		<a href="{{URL::previous()}}"><i class="fa fa-4x fa-arrow-circle-left return" aria-hidden="true"></i></a>
+
 		<h1>{{ $tournament->name }}</h1>
 
-		@if(isset($tournament->courts[0]))
-			<p><strong>Sport :</strong> {{ $tournament->courts[0]->sport->name }}</p>
+		@if(isset($tournament->sport))
+			<p><strong>Sport :</strong> {{ $tournament->sport->name }}</p>
 		@else
 			<p><strong>Sport :</strong> Aucun, veuillez en choisir un.</p>
 		@endif
-		
+
 		<p>
-			<strong>Date de début :</strong> {{ date("d.m.Y", strtotime($tournament->start_date)) }}
-			<br>
-			<strong>Date de fin :</strong> {{ date("d.m.Y", strtotime($tournament->end_date)) }}
+			<strong>Début du tournois :</strong> {{ $tournament->start_date->format('d.m.Y à H:i') }}
 		</p>
-		<p><strong>Heure de début :</strong> {{ date("H:i", strtotime($tournament->start_time)) }} </p>
-		
-		<div class="list-group">
-		  	<div class="list-group-item active" style="background-color:#636b6f; border-color: #636b6f">
-		    	<h4 class="list-group-item-heading">Terrain(s)</h4>
-		  	</div>
-		  	@foreach ($tournament->courts as $court)
-		  		<div class="list-group-item">
-					{{ $court->name }}
-				</div>
-			@endforeach
-		</div>
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Terrain(s)</th>
+				</tr>
+			</thead>
+			<tbody>
+				@if(count($tournament->sport->courts) > 0)
+					@foreach ($tournament->sport->courts as $court)
+			  		<tr>
+						<th scope="row" class="name">{{$court->name}}</th>
+					</tr>
+					@endforeach
+				@else
+					<tr>
+						<th scope="row" class="name">Aucun terrain pour l'instant ...</th>
+					</tr>
+				@endif
+			</tbody>
+		</table>
+
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Équipe(s)</th>
+				</tr>
+			</thead>
+			<tbody>
+				@if(count($tournament->teams) > 0)
+			  		@foreach ($tournament->teams as $team)
+			  			<tr>
+							<th scope="row" class="name">{{$team->name}}</th>
+						</tr>
+					@endforeach
+				@else
+					<tr>
+						<td>Aucune équipe pour l'instant ...</td>
+					</tr>
+			  	@endif
+			</tbody>
+		</table>
 
 
 	</div>

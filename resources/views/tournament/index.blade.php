@@ -1,41 +1,62 @@
 <!-- @author Dessaules Loïc -->
-
 @extends('layout')
 
 @section('content')
-	<div id="container">
-		<a href="/"><img src="{{ asset("images/return-arrow.png") }}" alt="Retour en arrière" class="return"></a>
-		<h1>Tournois</h1>
-		<table>
-			<tr>
-				<th>Nom</th>
-				<th>Sport</th>
-				<th>Action</th>
-			</tr>
+	<div class="container boxList">
+		@if ($fromEvent)
+			<a href="{{ route('events.index') }}"><i class="fa fa-4x fa-arrow-circle-left return" aria-hidden="true"></i></a>
+		@endif
+		
+		@if ($fromEvent)
+			<h1>Tournois de l'évenement {{ $event->name }}</h1>
+		@else
+			<h1>Tournois</h1>
+		@endif
+
+
+		<input type="search" placeholder="Recherche" class="search form-control">
+
+		<div class="row searchIn">
+
 			@foreach ($tournaments as $tournament)
-				<tr>
-					<td class="name" style="width:40%"><a href="{{route('tournaments.show', $tournament->id)}}" title="Voir le tournoi">{{$tournament->name}}</a></td>
-					@if(isset($tournament->courts[0]))
-						<td style="width:40%">{{ $tournament->courts[0]->sport->name }}</td>
-					@else
-						<td style="width:40%">Aucun sport</td>
-					@endif
-					
-					<td class="action" style="width:20%">
-						<a href="{{route('tournaments.edit', $tournament->id)}}" title="Éditer le tournoi" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-						{{ Form::open(array('url' => route('tournaments.destroy', $tournament->id), 'method' => 'delete')) }}
-							<button type="button" class="button-delete" data-name="{{ $tournament->name }}" data-type="tournament">
-			                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-			                </button>
-						{{ Form::close() }}
-					</td>
-				</tr>
+				<div class="col-md-4 hideSearch">
+					<a href="{{route('tournaments.show', $tournament->id)}}" title="Voir le tournoi">
+						<div class="box">
+							
+							<div class="imgBox">
+								<img src="{{ url('tournament_img/'.$tournament->img) }}" alt="Image de l'événement">
+								<div class="title name"> {{$tournament->name}} </div>
+							</div>
+
+							<div class="infos">
+								<div class="sport"> {{ $tournament->sport->name }} </div>
+								<div class="date"> {{$tournament->start_date->format('d.m.Y à H:i')}} </div>
+
+								@if(Auth::check())
+									@if(Auth::user()->role == 'administrator')
+										<a href="{{route('tournaments.edit', $tournament->id)}}" title="Éditer le tournoi" class="edit"><i class="fa fa-lg fa-pencil action" aria-hidden="true"></i></a>
+										<!--{{ Form::open(array('url' => route('tournaments.destroy', $tournament->id), 'method' => 'delete')) }}
+											<button type="button" class="button-delete" data-name="{{ $tournament->name }}" data-type="tournament">
+							                    <i class="fa fa-lg fa-trash-o action" aria-hidden="true"></i>
+							                </button>
+										{{ Form::close() }}-->
+									@endif
+								@endif
+
+							</div>
+
+						</div>
+					</a>
+				</div>
 			@endforeach
-		</table>
 
-		<br>
+		</div>
 
-		<a href="{{route('tournaments.create')}}" title="Créer un tournoi"><input type="button" value="Nouveau", class="btn btn-primary"></a>
-
+		@if(Auth::check() && $fromEvent)
+			@if(Auth::user()->role == 'administrator')
+				<a href="{{route('events.tournaments.create', $event->id)}}" title="Créer un tournoi"><i class="fa fa-plus-circle fa-4x" aria-hidden="true"></i></a>
+			@endif
+		@endif
+		
 	</div>
 @stop

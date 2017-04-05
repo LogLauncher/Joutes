@@ -3,8 +3,8 @@
 
 @section('content')
 
-	<div id="container">
-		<a href="{{ route('participants.index') }}"><img src="{{ asset("images/return-arrow.png") }}" alt="Retour en arrière" class="return"></a>
+	<div class="container">
+		<a href="{{ route('participants.index') }}"><i class="fa fa-4x fa-arrow-circle-left return" aria-hidden="true"></i></a>
 
 		<h1> {{ $participant->last_name }} {{ $participant->first_name }}</h1>
 
@@ -22,31 +22,31 @@
 				Aucun équipe lié à ce membre !
 			</div>
 		@else
-			<table>
+			<table class="table">
 
 				<thead>
 					<tr>
 						<th>Nom de l'équipe</th>
-						<th>Options</th>
+						<th class="options">Actions</th>
 					</tr>
 				</thead>
 
 				<tbody>
 
-				  	@foreach ($participant->teams as $team) 
+				  	@foreach ($participant->teams as $team)
 						<tr>
-					      <td class="name"> {{ $team->name }} </td>
-					      <td> 
-						      {{ Form::open(array('url' => route('teams.participants.destroy', [$team->pivot['fk_participants'], $team->pivot['fk_teams']]), 'method' => 'delete')) }}
+					      <th scope="row" class="name"> {{ $team->name }} </th>
+					      <td>
+						      {{ Form::open(array('url' => route('teams.participants.destroy', [$team->pivot['participant_id'], $team->pivot['team_id']]), 'method' => 'delete')) }}
 						      	<button type="submit" class="button-delete" data-type="memberTeam" data-name='"{{ $participant->last_name }} {{ $participant->first_name }}" de "{{ $team->name }}"'>
-						      		<i class="fa fa-trash-o" aria-hidden="true"></i> 
+						      		<i class="fa fa-trash-o fa-lg action" aria-hidden="true"></i>
 						      	</button>
 						      {{ Form::close() }}
 					      </td>
 					    </tr>
 
 					@endforeach
-			    	
+
 			  	</tbody>
 
 			</table>
@@ -60,15 +60,15 @@
 			</div>
 		@else
 			{{ Form::open(array('url' => route('teams.participants.store',  $participant->id), 'method' => 'post')) }}
-
 				
+				{{ Form::checkbox('isCaptain', true) }} Captain
 				{{ Form::select('team', $dropdownList, null, ['placeholder' => 'Sélectionner', 'class' => 'form-control addMember']) }}
 
 
 			{{ Form::close() }}
-		
+
 		@endif
 
 	</div>
-	
+
 @stop
