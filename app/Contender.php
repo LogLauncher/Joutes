@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 class Contender extends Model
 {
 	/**
-     * Create a new belongs to relationship instance between games and contenders (to have the first contender)
+     * Create a new belongs to relationship instance between team and contenders (to have the first contender)
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      *
@@ -21,4 +21,15 @@ class Contender extends Model
         return $this->belongsTo(Team::class);
     }
 
+    /**
+     * Create a new has many relationship instance between games and contenders 
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     *
+     * @author Antoine Dessauges
+     */
+    public function games()
+    {
+        return $this->hasMany('App\Game', 'contender1_id');
+    }
 }

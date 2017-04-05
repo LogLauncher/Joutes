@@ -33,4 +33,16 @@ class Game extends Model
         return $this->belongsTo(Contender::class, 'contender2_id');
     }
 
+
+    /**
+     * Create a new belongs to relationship instance between games and court
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     *
+     * @author Antoine Dessauges
+     */
+    public function court(){
+        return $this->belongsTo('App\Court');
+    }
+
 }

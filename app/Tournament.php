@@ -61,4 +61,16 @@ class Tournament extends Model
     public function pools() {
         return $this->hasMany('App\Pool');
     }
+
+    /**
+     * Create a new hasManyThrough relationship instance between tournaments and contenders
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     *
+     * @author Antoine Dessauges
+     */
+    public function contenders(){
+        return $this->hasmanyThrough('App\Contender', 'App\Pool');
+    }
+
 }
