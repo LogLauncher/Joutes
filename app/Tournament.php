@@ -73,4 +73,26 @@ class Tournament extends Model
         return $this->hasmanyThrough('App\Contender', 'App\Pool');
     }
 
+    /**
+     * Return places from a tournament
+     *
+     * @return array of places
+     *
+     * @author Antoine Dessauges
+     */
+    public function places(){
+        
+        $places = array();
+        
+        foreach ($this->contenders as $contender) {
+            foreach ($contender->games as $game) {
+                if(!in_array($game->court->name, $places))
+                    array_push($places, $game->court->name);
+            }
+        }
+
+        return $places;
+
+    }
+
 }
