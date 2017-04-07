@@ -11,7 +11,7 @@ class TeamTournamentTransformer extends TransformerAbstract
         return [
             'id'    => $tournament->id,
             'name'  => $tournament->name,
-            'type'  => $tournament->pools,
+            'type'  => '',
             'places' => $tournament->places(),
         ];
     }
