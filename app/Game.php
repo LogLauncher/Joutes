@@ -45,4 +45,9 @@ class Game extends Model
         return $this->belongsTo('App\Court');
     }
 
+
+    public function pool(){
+        return $this->contender1->pool;
+    }
+
 }

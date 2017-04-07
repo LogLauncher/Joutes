@@ -9,6 +9,7 @@ class SingleTeamTransformer extends TransformerAbstract
     public $defaultIncludes = [
         "members",
         'tournament',
+        'matches',
     ];
 
     public function transform(Team $team) {
@@ -18,7 +19,6 @@ class SingleTeamTransformer extends TransformerAbstract
             'name'       => (string) $team->name,
             'status'     => (string) '',
             'sport'      => $team->sport->name,
-            'matches'    => [],
         ];
     }
 
@@ -28,5 +28,9 @@ class SingleTeamTransformer extends TransformerAbstract
 
     public function includeTournament(Team $team) {
         return $this->item($team->tournament, new TeamTournamentTransformer);
+    }
+
+    public function includeMatches(Team $team) {
+        return $this->collection($team->games, new TeamMatchesTransformer);
     }
 }

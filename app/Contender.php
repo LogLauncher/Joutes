@@ -32,4 +32,16 @@ class Contender extends Model
     {
         return $this->hasMany('App\Game', 'contender1_id');
     }
+
+    /**
+     * Create a new has one to relationship instance between contender and pool
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     *
+     * @author Antoine Dessauges
+     */
+    public function pool(){
+        return $this->belongsTo('App\Pool');
+    }
+
 }

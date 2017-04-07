@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Model;
 class Pool extends Model
 {
 	public $timestamps = false; // Disable timestamp created_at etc.
+
+
 	//protected $fillable = array('fk_sports', 'name'); // -> We have to define all data we use on our courts table (For use : ->all())
 
     /**
@@ -33,5 +35,16 @@ class Pool extends Model
      */
     public function games(){
         return $this->hasmanyThrough(Game::class, Contender::class, 'pool_id', 'contender1_id');
+    }
+
+    /**
+     * Create a new belongs to relationship instance between pool and gamesTypes
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     *
+     * @author Antoine Dessauges
+     */
+    public function gameType(){
+        return $this->belongsTo('App\GameType', 'gameType_id');
     }
 }

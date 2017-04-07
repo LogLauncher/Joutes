@@ -41,4 +41,9 @@ class Team extends Model
     public function sport() {
 		return $this->tournament->sport();
     }
+
+    public function games()
+    {
+        return $this->hasManyThrough('App\Game', 'App\Contender','team_id', 'contender1_id', 'id');
+    }
 }
