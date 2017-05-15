@@ -198,8 +198,19 @@
 
                 $("#newPool").click(function() {
                     
-                    var html = '<ul class="pool drag connected"><input type="text" name="poolName" placeholder="Nom de la pool"></ul>';
+                    var html = '<ul class="pool drag connected col-md-4"><div class="col-md-12"><input type="text" name="poolName" placeholder="Nom de la pool"></div></ul>';
                     $("#pools").append(html);
+
+                    $( ".drag" ).sortable({
+                        connectWith: ".connected"
+                    }).disableSelection();
+
+                });
+
+                $("#newMatch").click(function() {
+                    
+                    var html = '<div class="row match"><div class="col-md-6"><ul class="drag connected oneTeam"></ul></div><div class="col-md-6"><ul class="drag connected oneTeam"></ul></div></div>';
+                    $(this).before(html);
 
                     $( ".drag" ).sortable({
                         connectWith: ".connected"

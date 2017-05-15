@@ -433,3 +433,52 @@ form .btn-success, form .btn-success:hover, .btn-login-form{
 input::placeholder {
   color: #8c8585 !important;
 }
+
+#teams{
+    float: left;
+}
+
+#teams span, #pools span{
+	font-weight: bold;
+	font-size: 18px;
+}
+
+#teams .oneTeam{
+	list-style-type: none;
+	background-color: #ededed;
+	padding: 5px;
+	margin: 7px 0;
+}
+
+#pools{
+	float: left;
+}
+
+#pools .pool{
+	background-color: #ededed;
+}
+
+#pools .pool .poolName{
+    text-align: center;
+}
+
+#pools .pool .poolName input{
+	width: 90%;
+    margin: 10px 0;
+    text-align: center;
+}
+
+#pools .match{
+	border-bottom: 1px solid red;
+}
+
+#pools .match:nth-child(1) .oneTeam::after{
+	content: "VS";
+}
+
+#pools .match .oneTeam{
+    list-style-type: none;
+    height: 20px;
+    background-color: red;
+    margin: 10px;
+}
