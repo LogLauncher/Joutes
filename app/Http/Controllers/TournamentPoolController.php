@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Pool;
+use App\Tournament;
 use Illuminate\Http\Request;
 
 class TournamentPoolController extends Controller
@@ -22,9 +23,11 @@ class TournamentPoolController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($idTournament)
     {
-        //
+        $tournament = Tournament::find($idTournament);
+        $teams = $tournament->teams();
+        return view('pool.create')->with('teams', $teams);
     }
 
     /**
