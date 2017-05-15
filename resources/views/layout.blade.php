@@ -182,7 +182,36 @@
         <script src="{{ asset('js/vendor/select2.full.min.js') }}"></script>
         <script src="{{ asset('js/vendor/jquery.dataTables.min.js') }}"></script>
         <script src="{{ asset('js/vendor/dataTables.bootstrap4.min.js') }}"></script>
+        <script src="{{ asset('js/vendor/jquery-ui.min.js') }}"></script>
 
         <script src="{{ asset('js/all.js') }}"></script>
+
+
+
+{{-- TEMPORARY , just dont want to run gulp at every modification of js file --}}
+        <script>
+
+            $( function() {
+                $( ".drag" ).sortable({
+                    connectWith: ".connected"
+                }).disableSelection();
+
+                $("#newPool").click(function() {
+                    
+                    var html = '<ul class="pool drag connected"><input type="text" name="poolName" placeholder="Nom de la pool"></ul>';
+                    $("#pools").append(html);
+
+                    $( ".drag" ).sortable({
+                        connectWith: ".connected"
+                    }).disableSelection();
+
+                });
+
+            });         
+
+        </script>
+
+
+
     </body>
 </html>

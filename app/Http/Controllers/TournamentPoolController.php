@@ -26,7 +26,7 @@ class TournamentPoolController extends Controller
     public function create($idTournament)
     {
         $tournament = Tournament::find($idTournament);
-        $teams = $tournament->teams();
+        $teams = $tournament->teams;
         return view('pool.create')->with('teams', $teams);
     }
 
