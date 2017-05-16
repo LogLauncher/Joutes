@@ -443,7 +443,12 @@ input::placeholder {
 	font-size: 18px;
 }
 
-#teams .oneTeam{
+#pools span{
+	padding-left: 0;
+    margin-bottom: 7px;
+}
+
+#teams .team{
 	list-style-type: none;
 	background-color: #ededed;
 	padding: 5px;
@@ -456,10 +461,17 @@ input::placeholder {
 
 #pools .pool{
 	background-color: #ededed;
+	padding: 5px;
+	margin-bottom: 15px;
 }
 
 #pools .pool .poolName{
     text-align: center;
+}
+
+#pools #newPool{
+	display: inline;
+	font-size: 14px;
 }
 
 #pools .pool .poolName input{
@@ -469,16 +481,51 @@ input::placeholder {
 }
 
 #pools .match{
-	border-bottom: 1px solid red;
-}
-
-#pools .match:nth-child(1) .oneTeam::after{
-	content: "VS";
+	text-align: center;
+	border-bottom: 1px solid white;
+	margin: 0;
 }
 
 #pools .match .oneTeam{
     list-style-type: none;
     height: 20px;
-    background-color: red;
-    margin: 10px;
+    background-color: white;
+    margin: 10px 0;
+    padding: 0;
+    width: 40%;
+    display: inline-block;
+}
+
+#pools .match .team{
+    width: 100%;
+    float: left;
+    text-align: center;
+    margin-top: -1px;
+}
+
+
+#pools .match .versus{
+	font-size: 14px;
+    vertical-align: top;
+    margin: 9px 2px 0 2px;
+    display: inline-block;
+}
+
+#pools .match .deleteMatch{
+	font-size: 18px;
+    vertical-align: top;
+    margin-top: 11px;
+    display: inline-block;
+    margin-left: 5px;
+}
+
+#pools #newMatch{
+	padding: 5px 12px;
+	display: inline-block;
+}
+
+#pools #deletePool{
+	padding: 5px 12px;
+	display: inline-block;
+	float: right;
 }

@@ -7,38 +7,42 @@
 	<ul id="teams" class="drag connected col-md-2">
 		<span>Equipes</span>
 		@foreach ($teams as $team)
-			<li class="oneTeam"> {{ $team->name }} </li>
+			<li class="team"> {{ $team->name }} </li>
 		@endforeach
 	</ul>
 
 	<div id="pools" class="col-md-10">
-		<span class="col-md-12">Pools</span>
+		<span class="col-md-12">Pools <div id="newPool" class="greenBtn">Ajouter une pool</div> </span>
 
-		<div class="pool col-md-4">
+		<div class="col-md-4">
+			<div class="pool">
 
-			<div class="row poolName"> <input type="text" name="poolName" placeholder="Nom de la pool"> </div>
-			<div class="row match">
-				<div class="col-md-6"><ul class="drag connected oneTeam"></ul></div>
-				<div class="col-md-6"><ul class="drag connected oneTeam"></ul></div>
+				<div class="row poolName"> <input type="text" name="poolName" placeholder="Nom de la pool"> </div>
+				<div class="row match">
+					<ul class="drag connected oneTeam"></ul> <span class="versus">VS</span>
+					<ul class="drag connected oneTeam"></ul> <i class="deleteMatch fa fa-trash-o" aria-hidden="true"></i>
+				</div>
+				<div class="row match">
+					<ul class="drag connected oneTeam"></ul> <span class="versus">VS</span>
+					<ul class="drag connected oneTeam"></ul> <i class="deleteMatch fa fa-trash-o" aria-hidden="true"></i>
+				</div>
+
+				<div id="newMatch">
+					<i class="fa fa-plus" aria-hidden="true"></i>
+					Ajouter un match
+				</div>
+
+				<div id="deletePool">
+					Supprimer la pool
+					<i class="fa fa-trash-o" aria-hidden="true"></i>
+				</div>
+
 			</div>
-			<div class="row match">
-				<div class="col-md-6"><ul class="drag connected oneTeam"></ul></div>
-				<div class="col-md-6"><ul class="drag connected oneTeam"></ul></div>
-			</div>
-
-			<div id="newMatch">
-				<i class="fa fa-plus" aria-hidden="true"></i>
-				Ajouter un match
-			</div>
-
 		</div>
 
 	</div>
 
-	<div id="newPool">
-		<i class="fa fa-plus" aria-hidden="true"></i>
-		Ajouter une pool
-	</div>
+
 
 @stop
 

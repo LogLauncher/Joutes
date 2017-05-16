@@ -132,12 +132,17 @@
 
             $( function() {
                 $( ".drag" ).sortable({
-                    connectWith: ".connected"
+                    connectWith: ".connected",
+                    remove: function(event, ui) {
+                        ui.item.clone().appendTo('#teams');
+                    }
                 }).disableSelection();
+
 
                 $("#newPool").click(function() {
                     
-                    var html = '<ul class="pool drag connected col-md-4"><div class="col-md-12"><input type="text" name="poolName" placeholder="Nom de la pool"></div></ul>';
+                    var html = '<div class="col-md-4"><div class="pool"><div class="row poolName"> <input type="text" name="poolName" placeholder="Nom de la pool"> </div><div class="row match"><ul class="drag connected oneTeam"></ul> <span class="versus">VS</span><ul class="drag connected oneTeam"></ul> <i class="deleteMatch fa fa-trash-o" aria-hidden="true"></i></div><div class="row match"><ul class="drag connected oneTeam"></ul> <span class="versus">VS</span><ul class="drag connected oneTeam"></ul> <i class="deleteMatch fa fa-trash-o" aria-hidden="true"></i></div><div id="newMatch"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter un match</div><div id="deletePool">Supprimer la pool<i class="fa fa-trash-o" aria-hidden="true"></i></div></div></div>';
+
                     $("#pools").append(html);
 
                     $( ".drag" ).sortable({
@@ -148,13 +153,24 @@
 
                 $("#newMatch").click(function() {
                     
-                    var html = '<div class="row match"><div class="col-md-6"><ul class="drag connected oneTeam"></ul></div><div class="col-md-6"><ul class="drag connected oneTeam"></ul></div></div>';
+                    var html = '<div class="row match"><ul class="drag connected oneTeam"></ul> <span class="versus">VS</span><ul class="drag connected oneTeam"></ul> <i class="deleteMatch fa fa-trash-o" aria-hidden="true"></i></div>';
                     $(this).before(html);
 
                     $( ".drag" ).sortable({
                         connectWith: ".connected"
                     }).disableSelection();
 
+                    $(".deleteMatch").click(function() {
+                        $(this).parent().remove();
+                    });
+
+                });
+
+                $(".deleteMatch").click(function() {
+                    $(this).parent().remove();
+                });
+                $("#deletePool").click(function() {
+                    $(this).parent().parent().remove();
                 });
 
             });         
