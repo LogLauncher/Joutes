@@ -494,11 +494,12 @@ input::placeholder {
     padding: 0;
     width: 40%;
     display: inline-block;
+    position: relative;
 }
 
 #pools .match .team{
     width: 100%;
-    float: left;
+    position: absolute;
     text-align: center;
     margin-top: -1px;
 }
@@ -507,7 +508,7 @@ input::placeholder {
 #pools .match .versus{
 	font-size: 14px;
     vertical-align: top;
-    margin: 9px 2px 0 2px;
+    margin: 9px 8px 0 -10px;
     display: inline-block;
 }
 

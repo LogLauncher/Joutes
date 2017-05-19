@@ -135,6 +135,7 @@
 
 
                 function initializeDrag(){
+
                     $( ".drag" ).sortable({
                         connectWith: ".connected",
                         
@@ -156,8 +157,6 @@
                             }
 
                         }
-                        
-
                     }).disableSelection();
 
                 } //initializeDrag
@@ -179,6 +178,7 @@
                     self.before(html);
 
                     initializeDelete();
+                    initializeDrag();
                     
 
                 } //addMatch
