@@ -27,12 +27,12 @@
 					<ul class="drag connected oneTeam"></ul> <i class="deleteMatch fa fa-trash-o" aria-hidden="true"></i>
 				</div>
 
-				<div id="newMatch">
+				<div class="newMatch">
 					<i class="fa fa-plus" aria-hidden="true"></i>
 					Ajouter un match
 				</div>
 
-				<div id="deletePool">
+				<div class="deletePool">
 					Supprimer la pool
 					<i class="fa fa-trash-o" aria-hidden="true"></i>
 				</div>

@@ -131,47 +131,93 @@
         <script>
 
             $( function() {
-                $( ".drag" ).sortable({
-                    connectWith: ".connected",
-                    remove: function(event, ui) {
-                        ui.item.clone().appendTo('#teams');
-                    }
-                }).disableSelection();
 
 
-                $("#newPool").click(function() {
-                    
-                    var html = '<div class="col-md-4"><div class="pool"><div class="row poolName"> <input type="text" name="poolName" placeholder="Nom de la pool"> </div><div class="row match"><ul class="drag connected oneTeam"></ul> <span class="versus">VS</span><ul class="drag connected oneTeam"></ul> <i class="deleteMatch fa fa-trash-o" aria-hidden="true"></i></div><div class="row match"><ul class="drag connected oneTeam"></ul> <span class="versus">VS</span><ul class="drag connected oneTeam"></ul> <i class="deleteMatch fa fa-trash-o" aria-hidden="true"></i></div><div id="newMatch"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter un match</div><div id="deletePool">Supprimer la pool<i class="fa fa-trash-o" aria-hidden="true"></i></div></div></div>';
 
-                    $("#pools").append(html);
-
+                function initializeDrag(){
                     $( ".drag" ).sortable({
-                        connectWith: ".connected"
+                        connectWith: ".connected",
+                        
+                        //limit to one team
+                        receive: function(event, ui) {
+                            if ($(this).children().length > 1) {
+                                ui.item.remove();
+                            }
+                        },
+
+                        remove: function(event, ui) {
+
+                            //clone for always have a team in the left list
+                            if ($("#teams:contains(" + ui.item.text() + ")").length){
+                                ui.item.remove();
+                            }
+                            else{
+                                ui.item.clone().appendTo('#teams');
+                            }
+
+                        }
+                        
+
                     }).disableSelection();
 
-                });
+                } //initializeDrag
 
-                $("#newMatch").click(function() {
-                    
-                    var html = '<div class="row match"><ul class="drag connected oneTeam"></ul> <span class="versus">VS</span><ul class="drag connected oneTeam"></ul> <i class="deleteMatch fa fa-trash-o" aria-hidden="true"></i></div>';
-                    $(this).before(html);
-
-                    $( ".drag" ).sortable({
-                        connectWith: ".connected"
-                    }).disableSelection();
+                function initializeDelete(){
 
                     $(".deleteMatch").click(function() {
                         $(this).parent().remove();
                     });
+                    $(".deletePool").click(function() {
+                        $(this).parent().parent().remove();
+                    });
+
+                } //initializeDelete
+
+                function addMatch(self){
+             
+                    var html = '<div class="row match"><ul class="drag connected oneTeam"></ul> <span class="versus">VS</span><ul class="drag connected oneTeam"></ul> <i class="deleteMatch fa fa-trash-o" aria-hidden="true"></i></div>';
+                    self.before(html);
+
+                    initializeDelete();
+                    
+
+                } //addMatch
+
+                $(".newMatch").click(function() {
+                    addMatch($(this));
+                });
+
+                initializeDrag();
+                initializeDelete();
+
+
+                $("#newPool").click(function() {
+                    
+                    var col4 = $('<div class="col-md-4"></div>');
+                    var pool = $('<div class="pool"><div class="row poolName"> <input type="text" name="poolName" placeholder="Nom de la pool"> </div> <div class="row match"><ul class="drag connected oneTeam"></ul> <span class="versus">VS</span><ul class="drag connected oneTeam"></ul> <i class="deleteMatch fa fa-trash-o" aria-hidden="true"></i></div><div class="row match"><ul class="drag connected oneTeam"></ul> <span class="versus">VS</span><ul class="drag connected oneTeam"></ul> <i class="deleteMatch fa fa-trash-o" aria-hidden="true"></i></div></div>');
+
+                    var btnAddMatch  = $('<div class="newMatch"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter un match</div>');
+                    var btnDelPool  = $('<div class="deletePool">Supprimer la pool <i class="fa fa-trash-o" aria-hidden="true"></i></div>');
+
+                    btnAddMatch.click(function() {
+                        addMatch($(this));
+                    });
+
+                    col4.append(pool);
+                    pool.append(btnAddMatch);
+                    pool.append(btnDelPool);
+
+                    $("#pools").append(col4);
+
+
+                    initializeDrag();
+                    initializeDelete();
 
                 });
 
-                $(".deleteMatch").click(function() {
-                    $(this).parent().remove();
-                });
-                $("#deletePool").click(function() {
-                    $(this).parent().parent().remove();
-                });
+                
+
+               
 
             });         
 

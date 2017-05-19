@@ -444,7 +444,7 @@ input::placeholder {
 }
 
 #pools span{
-	padding-left: 0;
+	padding-left: 15px;
     margin-bottom: 7px;
 }
 
@@ -519,12 +519,12 @@ input::placeholder {
     margin-left: 5px;
 }
 
-#pools #newMatch{
+#pools .newMatch{
 	padding: 5px 12px;
 	display: inline-block;
 }
 
-#pools #deletePool{
+#pools .deletePool{
 	padding: 5px 12px;
 	display: inline-block;
 	float: right;
