@@ -42,7 +42,7 @@
 
 	</div>
 
-
+	<div class="send savePool"><button class="btn btn-success formSend">Sauvegarder</button></div>
 
 @stop
 

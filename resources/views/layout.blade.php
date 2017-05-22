@@ -132,31 +132,39 @@
 
             $( function() {
 
-
-
                 function initializeDrag(){
 
                     $( ".drag" ).sortable({
                         connectWith: ".connected",
                         
-                        //limit to one team
                         receive: function(event, ui) {
-                            if ($(this).children().length > 1) {
+
+                            //limit to one team
+                            if ($(this).children().length > 1) 
                                 ui.item.remove();
-                            }
+                            
+                            //clone for always have a team in the left list
+                            if (!($("#teams:contains(" + ui.item.text() + ")").length))
+                                ui.item.clone().appendTo('#teams');
+
+                            //sort the left list
+                            var items = $('#teams li').get();
+                            items.sort(function(a,b){
+                              var keyA = $(a).text();
+                              var keyB = $(b).text();
+
+                              if (keyA < keyB) return -1;
+                              if (keyA > keyB) return 1;
+                              return 0;
+                            });
+                            var ul = $('#teams');
+                            $.each(items, function(i, li){
+                              ul.append(li);
+                            });
+
                         },
 
-                        remove: function(event, ui) {
 
-                            //clone for always have a team in the left list
-                            if ($("#teams:contains(" + ui.item.text() + ")").length){
-                                ui.item.remove();
-                            }
-                            else{
-                                ui.item.clone().appendTo('#teams');
-                            }
-
-                        }
                     }).disableSelection();
 
                 } //initializeDrag

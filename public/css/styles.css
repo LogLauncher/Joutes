@@ -390,10 +390,15 @@ span#login_link:hover{
 	float: left;
 }
 
-form .btn-success, form .btn-success:hover, .btn-login-form{
+form .btn-success, form .btn-success:hover, .btn-login-form, .btn-success, .btn-success:hover{
 	border-radius: 0;
 	background-color: #2a3f54;
     border-color: #2a3f54;
+}
+
+.savePool button{
+    float: initial !important;
+    margin-left: 30px;
 }
 
 #formSport, #formEvent, #formTournament, #formCourt, #formTeam {
