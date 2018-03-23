@@ -13,7 +13,7 @@ class MakeWriter extends Command
      *
      * @var string
      */
-    protected $signature = 'make:writer {username} {password}';
+    protected $signature = 'make:writer {firstname} {lastname} {email}';
 
     /**
      * The console command description.
