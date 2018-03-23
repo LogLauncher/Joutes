@@ -39,15 +39,20 @@ class MakeAdmin extends Command
      */
     public function handle()
     {
-        $username = $this->argument('username');
-        $password = Hash::make($this->argument('password'));
+        $firstName = $this->argument('firstName');
+        $lastName = $this->argument('lastName');
+        $email = $this->argument('email');
+        $username = strtoupper($lastName).' '.$firstName;
 
         if(User::where('username', '=', $username)->exists()){
             $this->line("Erreur: L'utilisateur $username existe déjà.");
         }else{
             $user = new User;
             $user->username = $username;
-            $user->password = $password;
+            $user->password = Hash::make('password');
+            $user->email = $email;
+            $user->first_name = $firstName;
+            $user->last_name = $lastName;
             $user->role = 'administrator';
             $user->save();
             $this->line("L'administrateur $username a bien été créé.");
