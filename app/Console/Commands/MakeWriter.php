@@ -39,8 +39,8 @@ class MakeWriter extends Command
      */
     public function handle()
     {
-        $firstName = $this->argument('firstName');
-        $lastName = $this->argument('lastName');
+        $firstName = $this->argument('firstname');
+        $lastName = $this->argument('lastname');
         $email = $this->argument('email');
         $username = strtoupper($lastName).' '.$firstName;
 
