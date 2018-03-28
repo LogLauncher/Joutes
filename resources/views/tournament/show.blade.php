@@ -10,8 +10,22 @@
 		<h1 class="tournamentName">
 			{{ $tournament->name }}
 			@if (Auth::check() && (Auth::user()->role == 'administrator' || Auth::user()->role == 'writer'))
-				<a href="{{ route('tournaments.schedule.index', $tournament->id) }}" class="greenBtn big-screen" title="Affichage écran géant">Affichage écran geant</i></a>
+				<a href="{{ route('tournaments.schedule.index', $tournament->id) }}" class="greenBtn big-screen" title="Affichage écran géant">Affichage écran geant</a>
+				@if (Auth::user()->role == 'administrator')
+
+					{{ Form::open(array('url' => route('tournaments.update', $tournament->id), 'method' => 'put', 'class' => 'add', 'id' => 'formTournamentValidate', 'enctype' => 'multipart/form-data')) }}
+
+						<div class="form-group">
+							{{ Form::label('img', "Nombre d'équipes par poule") }}
+							{{ Form::number('teamsPerPools', null) }}
+						</div>
+						<div class="send"> {{ Form::button('Valider', array('class' => 'btn btn-success formSend')) }} </div>
+
+					{{ Form::close() }}
+
+				@endif
 			@endif
+
 		</h1>
 
 		<div class="right">

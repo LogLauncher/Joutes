@@ -175,4 +175,9 @@ class Tournament extends Model
 
         return $tournament_games->sortBy('start_time')->take($limit);
     }
+
+    public function generateTournamentPools()
+    {
+
+    }
 }

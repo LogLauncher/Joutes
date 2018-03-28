@@ -87,6 +87,14 @@ $( document ).ready(function() {
 		    		error += 'Le champ Image ne doit pas être vide.<br>';
 		    	}
 		    	break;
+
+            case "formTournamentValidate":
+                var teamsPerPools = $('#formTournamentValidate #img').val();
+
+                if(!patternName.test(teamsPerPools)){
+                    error += "Le nombre d'équipes par poule doit être entre 2 et 20.<br>";
+                }
+                break;
 		}
 
 		if(error == ''){
