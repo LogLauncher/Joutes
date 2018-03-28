@@ -40,10 +40,13 @@
 				{{ Form::label('startTime', 'Heure de début') }}
 				{{ Form::text('startTime', null, array('placeholder' => 'hh:mm', 'class'=>'form-control')) }}
 			</div>
+			<!--
 			<div class="form-group">
-				{{ Form::label('teams', 'Équipes participantes') }}
-				{{ Form::select('teams[]', $dropdownListTeams, null, array('class' => 'allSameStyle form-control', 'id' => 'multiple-teams-select', 'multiple')) }}
+				{{-- Form::label('teams', 'Équipes participantes') }}
+				{{ Form::select('teams[]', $dropdownListTeams, null, array('class' => 'allSameStyle form-control', 'id' => 'multiple-teams-select', 'multiple')) --}}
 			</div>
+			-->
+
 			<div class="form-group">
 				{{ Form::label('img', 'Image') }}
 				{{ Form::file('img', null) }}

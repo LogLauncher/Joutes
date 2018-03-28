@@ -26,10 +26,10 @@ class EventTournamentController extends Controller
         // Get all sports who have no court linked
         $dropdownListSportsWithNoCourt = $this->getDropDownListSportsWithNoCourt();
         // Get only the teams who don't participate to any tournament AND the teams who are participating to the tournament
-        $dropdownListTeams = $this->getDropDownListTeams(null);
+        //$dropdownListTeams = $this->getDropDownListTeams(null);
         return view('tournament.create')->with('dropdownListSportsWithCourt', $dropdownListSportsWithCourt)
                                         ->with('dropdownListSportsWithNoCourt', $dropdownListSportsWithNoCourt)
-                                        ->with('dropdownListTeams', $dropdownListTeams)
+                                        //->with('dropdownListTeams', $dropdownListTeams)
                                         ->with('eventId', $eventId);
     }
 
@@ -83,11 +83,11 @@ class EventTournamentController extends Controller
             // Get all sports who have no court linked
             $dropdownListSportsWithNoCourt = $this->getDropDownListSportsWithNoCourt();
             // Get only the teams who don't participate to any tournament AND the teams who are participating to the tournament
-            $dropdownListTeams = $this->getDropDownListTeams(null);
+            //$dropdownListTeams = $this->getDropDownListTeams(null);
 
             return view('tournament.create')->with('dropdownListSportsWithCourt', $dropdownListSportsWithCourt)
                                             ->with('dropdownListSportsWithNoCourt', $dropdownListSportsWithNoCourt)
-                                            ->with('dropdownListTeams', $dropdownListTeams)
+                                            //->with('dropdownListTeams', $dropdownListTeams)
                                             ->withErrors($validator->errors())
                                             ->with('customErrors', $customErrors)
                                             ->with('eventId', $eventId);
@@ -106,6 +106,7 @@ class EventTournamentController extends Controller
             $tournament->sport_id = $request->input('sport');
             $tournament->save();
 
+            /*
             // Accociate new teams linked
             if(!empty($request->input('teams'))){
               foreach ($request->input('teams') as $teamId) {
@@ -113,7 +114,7 @@ class EventTournamentController extends Controller
                 $team->tournament()->associate($tournament);
                 $team->update();
               }
-            }
+            }*/
 
             return redirect()->route('tournaments.index');
         }
@@ -136,9 +137,9 @@ class EventTournamentController extends Controller
       $dropdownListSportsWithNoCourt = $this->getDropDownListSportsWithNoCourt();
 
       // Get only the teams who don't participate to any tournament AND the teams who are participating to the tournament
-      $dropdownListTeams = $this->getDropDownListTeams($tournament);
+      //$dropdownListTeams = $this->getDropDownListTeams($tournament);
 
-
+      /*
       // Create array with ID of each teams who participating because I need this to display participating teams in the "placeholder" of the select
       $teamsAreParticipating = $tournament->teams;
       if(count($teamsAreParticipating) > 0){
@@ -147,7 +148,7 @@ class EventTournamentController extends Controller
           }
       }else{
         $teamsAreParticipatingId = null;
-      }
+      }*/
 
       // normal case, there is a sport linked
       if(isset($tournament->sport)){
@@ -159,9 +160,9 @@ class EventTournamentController extends Controller
       return view('tournament.edit')->with('tournament', $tournament)
                                     ->with('dropdownListSportsWithCourt', $dropdownListSportsWithCourt)
                                     ->with('dropdownListSportsWithNoCourt', $dropdownListSportsWithNoCourt)
-                                    ->with('sport', $sport)
-                                    ->with('dropdownListTeams', $dropdownListTeams)
-                                    ->with('teamsAreParticipatingId', $teamsAreParticipatingId);
+                                    ->with('sport', $sport);
+                                    /*->with('dropdownListTeams', $dropdownListTeams)
+                                    ->with('teamsAreParticipatingId', $teamsAreParticipatingId);*/
     }
 
     /**

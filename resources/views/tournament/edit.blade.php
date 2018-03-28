@@ -44,14 +44,16 @@
 				{{ Form::label('startTime', 'Heure de début') }}
 				{{ Form::text('startTime', date("H:i", strtotime($tournament->start_date)), array('placeholder' => 'hh:mm', 'class' => 'form-control')) }}
 			</div>
+		<!--
 			<div class="form-group">
-				{{ Form::label('teams', 'Équipes participantes') }}
+				{{-- Form::label('teams', 'Équipes participantes') }}
 				@if(!empty($teamsAreParticipatingId))
 					{{ Form::select('teams[]', $dropdownListTeams, $teamsAreParticipatingId, array('class' => 'form-control allSameStyle', 'id' => 'multiple-teams-select', 'multiple')) }}
 				@else
-					{{ Form::select('teams[]', $dropdownListTeams, null, array('class' => 'allSameStyle form-control', 'id' => 'multiple-teams-select', 'multiple')) }}
-				@endif
+					{{ Form::select('teams[]', $dropdownListTeams, null, array('class' => 'allSameStyle form-control', 'id' => 'multiple-teams-select', 'multiple')) --}}
+				endif
 			</div>
+		-->
 			<div class="form-group">
 				{{ Form::label('img', 'Image') }}
 				{{ Form::file('img', null) }}
