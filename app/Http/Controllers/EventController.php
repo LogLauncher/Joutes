@@ -53,5 +53,12 @@ class EventController extends Controller
         return true;
     }
 
+    public function update(Request $request, $id) {
+        // check is it's an api request
+        if ($request->is('api/*')) {
+            return '{"message":"Update done!","id":'.$id.'}';
+        }
+        return '{"message":"Didn\'t work!"}';
+    }
 
 }
